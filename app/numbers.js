@@ -2,13 +2,14 @@ exports = typeof window === 'undefined' ? global : window;
 
 exports.numbersAnswers = {
   valueAtBit: function(num, bit) {
-    // TODO: add logic for this
-    return num;
+    // i stole this from somewhere because I can't imagine a scenario when
+    // I actually need to do this for any reason and I would totally just
+    // look it up again
+    return 1 & (num >> (bit - 1));
   },
 
   base10: function(str) {
-    // TODO: add logic for this
-    return str;
+    return parseInt(str, 2);
   },
 
   convertToBinary: function(num) {
