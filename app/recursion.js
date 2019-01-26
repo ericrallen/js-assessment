@@ -6,9 +6,11 @@ exports.recursionAnswers = {
 
     const directoryContents = [];
 
+    // we'll just keep using this recursively to find the content of each directory
     const listContents = (directoryData) => {
       const { dir, files } = directoryData;
 
+      // when we iterate through the contents of the directory, we may find a file or another directory
       files.forEach((fileOrDirectory) => {
         if (typeof fileOrDirectory === 'string' && (!dirToFind || dirToFind === dir)) {
           directoryContents.push(fileOrDirectory);
@@ -16,8 +18,6 @@ exports.recursionAnswers = {
           listContents(fileOrDirectory);
         }
       });
-
-      console.log(directoryContents);
     };
 
     listContents(data);
@@ -25,7 +25,7 @@ exports.recursionAnswers = {
     return directoryContents;
   },
 
-  // I cheated. you don't need to know how to do this without looking it up
+  // I cheated. I don't believe you need to know how to do this without looking it up
   permute: function(arr) {
     let result = [];
 
@@ -45,7 +45,15 @@ exports.recursionAnswers = {
   },
 
   fibonacci: function(n) {
+    if (n < 1) {
+      return 0;
+    }
+    
+    if (n < 2) {
+      return 1;
+    }
 
+    return this.fibonacci(n - 1) + this.fibonacci(n - 2);
   },
 
   validParentheses: function(n) {
