@@ -2,7 +2,27 @@ exports = typeof window === 'undefined' ? global : window;
 
 exports.recursionAnswers = {
   listFiles: function(data, dirName) {
+    const dirToFind = dirName;
 
+    const directoryContents = [];
+
+    const listContents = (directoryData) => {
+      const { dir, files } = directoryData;
+
+      files.forEach((fileOrDirectory) => {
+        if (typeof fileOrDirectory === 'string' && (!dirToFind || dirToFind === dir)) {
+          directoryContents.push(fileOrDirectory);
+        } else {
+          listContents(fileOrDirectory);
+        }
+      });
+
+      console.log(directoryContents);
+    };
+
+    listContents(data);
+
+    return directoryContents;
   },
 
   // I cheated. you don't need to know how to do this without looking it up
