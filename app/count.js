@@ -6,7 +6,9 @@ exports.countAnswers = {
     let timer;
 
     const counting = () => {
-      start++;
+      console.log(start);
+
+      start = start + 1;
 
       if (start <= end) {
         timer = setTimeout(counting, 100);
@@ -19,4 +21,13 @@ exports.countAnswers = {
       cancel: () => clearTimeout(timer),
     }
   }
+
+  /*
+  const makeTimer = () => {
+      console.log(start++)
+      if (start <= end)
+        timer = setTimeout(makeTimer, 100)
+    }
+    makeTimer()
+    */
 };
