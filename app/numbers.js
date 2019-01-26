@@ -13,11 +13,28 @@ exports.numbersAnswers = {
   },
 
   convertToBinary: function(num) {
-    // TODO: add logic for this
-    return num;
+    // this is gross and I don't understand the point
+    // I haven't yet needed to deal with numbers like this, and I hope that trend
+    // continues
+    const bits = num.toString(2);
+
+    let pad;
+
+    if (bits.length < 8) {
+      pad = Array
+        .from({ length: 8 - bits.length })
+        .map(element => 0)
+        .join('')
+      ;
+    }
+
+    return (pad) ? `${pad}${bits}` : bits;
   },
 
   multiply: function(a, b) {
+    // this is probably an overly verbose way of dealing with it, but ¯\_(ツ)_/¯
+    // we're essentially checking the precision of each number and using the maximum
+    // number of decimals to set our final precision
     var parsedA = a.toString().split('.');
     var parsedB = b.toString().split('.');
 
