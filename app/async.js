@@ -6,7 +6,6 @@ exports.asyncAnswers = {
   },
 
   manipulateRemoteData: function(url) {
-    // TODO: figure out why this logic doesn't return what is expected
     const returnData = [];
 
     return fetch(url)
