@@ -4,8 +4,6 @@ exports.recursionAnswers = {
   listFiles: function(data, dirName) {
     const directoryContents = [];
 
-    console.log(data, dirName);
-
     const path = [];
 
     // we'll just keep using this recursively to find the content of each directory
@@ -66,6 +64,11 @@ exports.recursionAnswers = {
   },
 
   validParentheses: function(n) {
+    // this is super gross
+    // we grab the permutations of parentheses using our permute method above
+    // but that has a ton of garbage
+    // so we filter out the duplicates and then validate the parenthesis pairs
+
     let startingState = '';
 
     for (let i = 0; i < n; i++) {
@@ -74,11 +77,34 @@ exports.recursionAnswers = {
 
     const allPermutations = this.permute(startingState.split(''));
 
-    return allPermutations
-      .filter((item) => {
-        // TODO: actually filter for valid pairs here
+    const state = [];
+
+    return this.permute(startingState.split(''))
+      .map((item) => item.join(''))
+      .filter((item, index, array) => {
+        if (array.indexOf(item, index + 1) !== -1) {
+          return false;
+        }
+
+        return true;
       })
-      .map(item => item.join(''))
+      .filter((item) => {
+        return item.split('').every((character) => {
+          if (character === '(') {
+            state.push(character);
+
+            return true;
+          } else {
+            if (state.length) {
+              state.pop();
+
+              return true;
+            } else {
+              return false;
+            }
+          }
+        });
+      })
     ;
   }
 };
