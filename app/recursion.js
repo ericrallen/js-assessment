@@ -2,20 +2,29 @@ exports = typeof window === 'undefined' ? global : window;
 
 exports.recursionAnswers = {
   listFiles: function(data, dirName) {
-    const dirToFind = dirName;
-
     const directoryContents = [];
+
+    console.log(data, dirName);
+
+    const path = [];
 
     // we'll just keep using this recursively to find the content of each directory
     const listContents = (directoryData) => {
       const { dir, files } = directoryData;
 
       // when we iterate through the contents of the directory, we may find a file or another directory
-      files.forEach((fileOrDirectory) => {
-        if (typeof fileOrDirectory === 'string' && (!dirToFind || dirToFind === dir)) {
+      files && files.length && files.forEach((fileOrDirectory, index, array) => {
+        if (typeof fileOrDirectory === 'string' && (typeof dirName === 'undefined' || dirName === dir || (path.length && path.includes(dirName)))) {
           directoryContents.push(fileOrDirectory);
         } else {
+          path.push(dir);
+
           listContents(fileOrDirectory);
+        }
+
+        // this lets us make sure that we aren't mixing up paths as we break back out of nested directories
+        if (index === array.length - 1) {
+          path.pop();
         }
       });
     };
